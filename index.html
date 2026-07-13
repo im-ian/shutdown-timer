@@ -18,23 +18,12 @@
   </head>
   <body>
     <main class="app">
-      <header class="topbar">
-        <h1><span aria-hidden="true">&gt;</span> shutdown timer</h1>
-        <p>local only</p>
-      </header>
+      <h1>shutdown timer</h1>
 
-      <section class="section" aria-labelledby="time-heading">
-        <div class="section-header">
-          <div>
-            <span class="section-number">01</span>
-            <h2 id="time-heading">종료까지 남은 시간</h2>
-          </div>
-          <button class="text-button" id="reset-button" type="button">초기화</button>
-        </div>
-
-        <div class="time-fields" id="time-fields">
+      <section class="timer" aria-label="종료까지 남은 시간">
+        <div class="time-fields">
           <label class="time-field">
-            <span class="field-label">시간</span>
+            <span class="sr-only">시간</span>
             <span class="field-control">
               <input
                 id="hours"
@@ -54,7 +43,7 @@
           <span class="time-divider" aria-hidden="true">:</span>
 
           <label class="time-field">
-            <span class="field-label">분</span>
+            <span class="sr-only">분</span>
             <span class="field-control">
               <input
                 id="minutes"
@@ -74,7 +63,7 @@
           <span class="time-divider" aria-hidden="true">:</span>
 
           <label class="time-field">
-            <span class="field-label">초</span>
+            <span class="sr-only">초</span>
             <span class="field-control">
               <input
                 id="seconds"
@@ -93,64 +82,27 @@
         </div>
 
         <p class="input-error" id="input-error" role="alert"></p>
-
-        <div class="presets" aria-label="빠른 시간 선택">
-          <button type="button" data-seconds="900">15분</button>
-          <button type="button" data-seconds="1800">30분</button>
-          <button type="button" data-seconds="3600">1시간</button>
-          <button type="button" data-seconds="7200">2시간</button>
-        </div>
       </section>
 
-      <section class="section" aria-labelledby="os-heading">
-        <div class="section-header">
-          <div>
-            <span class="section-number">02</span>
-            <h2 id="os-heading">운영체제</h2>
-          </div>
+      <div class="os-switcher" role="group" aria-label="운영체제 선택">
+        <button type="button" data-os="windows" aria-pressed="true">Windows</button>
+        <button type="button" data-os="macos" aria-pressed="false">macOS</button>
+        <button type="button" data-os="linux" aria-pressed="false">Linux</button>
+      </div>
+
+      <section class="output" aria-label="종료 명령어">
+        <div class="command-row">
+          <code id="command-output" aria-live="polite">shutdown /s /t 3600</code>
+          <button class="copy-button" id="copy-button" type="button">
+            <span>복사</span>
+          </button>
         </div>
 
-        <div class="os-switcher" role="group" aria-label="운영체제 선택">
-          <button type="button" data-os="windows" aria-pressed="true">Windows</button>
-          <button type="button" data-os="macos" aria-pressed="false">macOS</button>
-          <button type="button" data-os="linux" aria-pressed="false">Linux</button>
-        </div>
+        <p class="usage-note" id="usage-note">
+          명령 프롬프트 또는 PowerShell에 붙여 넣으세요. 예약을 취소하려면
+          <code>shutdown /a</code>를 실행하세요.
+        </p>
       </section>
-
-      <section class="section result-section" aria-labelledby="command-heading">
-        <div class="result-summary" aria-live="polite">
-          <span id="duration-display">01:00:00</span>
-          <span aria-hidden="true">→</span>
-          <strong><span id="seconds-display">3,600</span>초</strong>
-        </div>
-
-        <div class="command-block">
-          <div class="command-meta">
-            <h2 id="command-heading">command</h2>
-            <span id="command-kind">WINDOWS · SECONDS</span>
-          </div>
-          <div class="command-row">
-            <code id="command-output">shutdown /s /t 3600</code>
-            <button class="copy-button" id="copy-button" type="button">
-              <span>복사</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="usage-note">
-          <span aria-hidden="true">i</span>
-          <p id="usage-note">
-            명령 프롬프트 또는 PowerShell에 붙여 넣으세요. 예약을 취소하려면
-            <code>shutdown /a</code>를 실행하세요.
-          </p>
-        </div>
-      </section>
-
-      <footer>
-        브라우저는 명령어를 직접 실행하지 않습니다.
-      </footer>
     </main>
-
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </body>
 </html>
