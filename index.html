@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="시간, 분, 초를 입력해 Windows, macOS, Linux 종료 명령어를 만드는 계산기"
+    />
+    <meta name="theme-color" content="#121310" />
+    <title>OFF TIMER — 종료 명령어 계산기</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23121310'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%23d7f93d' stroke-width='6'/%3E%3Cpath d='M32 12v20' stroke='%23ff4d24' stroke-width='7'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="./script.js"></script>
+  </head>
+  <body>
+    <div class="page-noise" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="wordmark" href="./" aria-label="OFF TIMER 홈">
+        <span class="wordmark-dot" aria-hidden="true"></span>
+        OFF / TIMER
+      </a>
+      <p class="header-note">LOCAL TOOL · NOTHING IS SENT</p>
+    </header>
+
+    <main class="shell">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow"><span>01</span> SHUTDOWN CALCULATOR</p>
+        <h1 id="page-title">
+          컴퓨터를 끌 시간만<br />
+          <em>정해 주세요.</em>
+        </h1>
+        <p class="intro-copy">
+          원하는 시간을 입력하면 운영체제에 맞는 종료 명령어를 바로 만들어 드립니다.
+          계산과 복사는 모두 이 브라우저 안에서만 이루어집니다.
+        </p>
+      </section>
+
+      <section class="calculator" aria-label="종료 시간 계산기">
+        <div class="input-panel">
+          <div class="section-heading">
+            <div>
+              <p class="step-label">STEP 01</p>
+              <h2>얼마 뒤에 끌까요?</h2>
+            </div>
+            <button class="reset-button" id="reset-button" type="button">초기화</button>
+          </div>
+
+          <div class="time-fields" id="time-fields">
+            <label class="time-field">
+              <span class="field-label">시간</span>
+              <span class="field-control">
+                <input
+                  id="hours"
+                  name="hours"
+                  type="number"
+                  min="0"
+                  max="9999"
+                  step="1"
+                  inputmode="numeric"
+                  value="1"
+                  aria-describedby="input-error"
+                />
+                <span aria-hidden="true">H</span>
+              </span>
+            </label>
+
+            <span class="time-divider" aria-hidden="true">:</span>
+
+            <label class="time-field">
+              <span class="field-label">분</span>
+              <span class="field-control">
+                <input
+                  id="minutes"
+                  name="minutes"
+                  type="number"
+                  min="0"
+                  max="59"
+                  step="1"
+                  inputmode="numeric"
+                  value="0"
+                  aria-describedby="input-error"
+                />
+                <span aria-hidden="true">M</span>
+              </span>
+            </label>
+
+            <span class="time-divider" aria-hidden="true">:</span>
+
+            <label class="time-field">
+              <span class="field-label">초</span>
+              <span class="field-control">
+                <input
+                  id="seconds"
+                  name="seconds"
+                  type="number"
+                  min="0"
+                  max="59"
+                  step="1"
+                  inputmode="numeric"
+                  value="0"
+                  aria-describedby="input-error"
+                />
+                <span aria-hidden="true">S</span>
+              </span>
+            </label>
+          </div>
+
+          <p class="input-error" id="input-error" role="alert"></p>
+
+          <div class="presets" aria-label="빠른 시간 선택">
+            <span>QUICK SET</span>
+            <button type="button" data-seconds="900">15분</button>
+            <button type="button" data-seconds="1800">30분</button>
+            <button type="button" data-seconds="3600">1시간</button>
+            <button type="button" data-seconds="7200">2시간</button>
+          </div>
+        </div>
+
+        <div class="result-panel">
+          <div class="section-heading result-heading">
+            <div>
+              <p class="step-label">STEP 02</p>
+              <h2>운영체제를 고르세요</h2>
+            </div>
+            <span class="detected-badge" id="detected-badge">자동 감지</span>
+          </div>
+
+          <div class="os-switcher" role="group" aria-label="운영체제 선택">
+            <button type="button" data-os="windows" aria-pressed="true">
+              <span class="os-mark" aria-hidden="true">⊞</span>
+              Windows
+            </button>
+            <button type="button" data-os="macos" aria-pressed="false">
+              <span class="os-mark apple-mark" aria-hidden="true">●</span>
+              macOS
+            </button>
+            <button type="button" data-os="linux" aria-pressed="false">
+              <span class="os-mark" aria-hidden="true">⌁</span>
+              Linux
+            </button>
+          </div>
+
+          <div class="calculation-summary" aria-live="polite">
+            <div>
+              <span class="summary-label">입력한 시간</span>
+              <strong id="duration-display">01:00:00</strong>
+            </div>
+            <span class="summary-arrow" aria-hidden="true">→</span>
+            <div class="seconds-summary">
+              <span class="summary-label">환산 결과</span>
+              <strong><span id="seconds-display">3,600</span><small> 초</small></strong>
+            </div>
+          </div>
+
+          <div class="command-block">
+            <div class="command-meta">
+              <span>TERMINAL COMMAND</span>
+              <span id="command-kind">WINDOWS · SECONDS</span>
+            </div>
+            <div class="command-row">
+              <code id="command-output">shutdown /s /t 3600</code>
+              <button class="copy-button" id="copy-button" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2" />
+                  <rect x="4" y="7" width="12" height="14" rx="2" />
+                </svg>
+                <span>복사</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="usage-note">
+            <span class="note-icon" aria-hidden="true">!</span>
+            <p id="usage-note">
+              명령 프롬프트 또는 PowerShell에 붙여 넣으세요. 예약을 취소하려면
+              <code>shutdown /a</code>를 실행하세요.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        <p>명령어를 보여줄 뿐, 브라우저에서 컴퓨터를 직접 종료하지 않습니다.</p>
+        <p>OFF TIMER / <span id="current-year"></span></p>
+      </footer>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
