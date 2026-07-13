@@ -21,9 +21,7 @@ const elements = {
   usageNote: document.querySelector("#usage-note"),
   copyButton: document.querySelector("#copy-button"),
   resetButton: document.querySelector("#reset-button"),
-  detectedBadge: document.querySelector("#detected-badge"),
   toast: document.querySelector("#toast"),
-  currentYear: document.querySelector("#current-year"),
   osButtons: [...document.querySelectorAll("[data-os]")],
   presetButtons: [...document.querySelectorAll("[data-seconds]")],
 };
@@ -119,7 +117,6 @@ Object.values(elements.fields).forEach((input) => {
 elements.osButtons.forEach((button) => {
   button.addEventListener("click", () => {
     selectedOs = button.dataset.os;
-    elements.detectedBadge.textContent = "직접 선택";
     render();
   });
 });
@@ -130,6 +127,5 @@ elements.presetButtons.forEach((button) => {
 
 elements.resetButton.addEventListener("click", () => setDuration(0));
 elements.copyButton.addEventListener("click", copyCommand);
-elements.currentYear.textContent = new Date().getFullYear();
 
 render();
