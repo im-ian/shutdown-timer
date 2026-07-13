@@ -4,7 +4,8 @@
   --white: #f2f2f2;
   --gray: #666;
   --line: #2c2c2c;
-  --mono: "SFMono-Regular", "Cascadia Code", "Roboto Mono", Consolas, monospace;
+  --system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
 }
 
 * {
@@ -20,7 +21,7 @@ body {
   place-items: center;
   color: var(--white);
   background: var(--black);
-  font-family: var(--mono);
+  font-family: var(--system);
   -webkit-font-smoothing: antialiased;
 }
 
